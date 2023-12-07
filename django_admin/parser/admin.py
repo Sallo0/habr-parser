@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Hub, Article, Author, ArticleHubAssociation
+from .models import Article, ArticleHubAssociation, Author, Hub
 
 
 class ArticleHubAssociationInline(admin.TabularInline):

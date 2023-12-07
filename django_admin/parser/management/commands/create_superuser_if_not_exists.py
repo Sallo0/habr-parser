@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
+
 from django_admin.settings import SUPERUSER_NAME, SUPERUSER_PASSWORD
 
 User = get_user_model()

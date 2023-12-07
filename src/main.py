@@ -1,15 +1,15 @@
 import asyncio
+from parser import Parser
 
 from database.database import create_db
-from view import ConsoleView
-from planer import Planer
-from parser import Parser
+from manager import Manager
 from repository import Repository
+from view import ConsoleView
 
 
 async def main():
     await create_db()
-    planer = Planer(Parser(), ConsoleView(), Repository())
+    planer = Manager(Parser(), ConsoleView(), Repository())
     await planer.start_polling()
 
 

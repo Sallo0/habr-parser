@@ -2,17 +2,17 @@ import asyncio
 import logging
 import time
 import traceback
+from parser import Parser
 
 import aiohttp
 from aiohttp import ClientSession
 
-from parser import Parser
 from entities import ArticleInfo, HubInfo
-from view import ConsoleView
 from repository import Repository
+from view import ConsoleView
 
 
-class Planer:
+class Manager:
     def __init__(self, parser: Parser, view: ConsoleView, repository: Repository):
         self.parser = parser
         self.view = view
@@ -30,10 +30,10 @@ class Planer:
                     async with aiohttp.ClientSession() as session:
                         for hub_data in hubs_to_parse:
                             hub_url = hub_data.url
-                            hub_page = await self.get_hub(session, hub_url)
+                            hub_page = await self._get_hub(session, hub_url)
                             articles_urls = self.parser.get_articles_urls(hub_page)
 
-                            tasks = [asyncio.create_task(self.process_article(session, article_url, hub_data)) for
+                            tasks = [asyncio.create_task(self._process_article(session, article_url, hub_data)) for
                                      article_url in articles_urls]
                             self.view.display_hub(hub_data)
                             for article_task in asyncio.as_completed(tasks):
@@ -49,11 +49,11 @@ class Planer:
         finally:
             print("Завершение работы")
 
-    async def get_hub(self, session: ClientSession, hub_url: str) -> str:
+    async def _get_hub(self, session: ClientSession, hub_url: str) -> str:
         async with session.get(hub_url) as response:
             return await response.text()
 
-    async def process_article(self, session: ClientSession, article_url: str, hub_info: HubInfo) -> ArticleInfo | None:
+    async def _process_article(self, session: ClientSession, article_url: str, hub_info: HubInfo) -> ArticleInfo | None:
         async with session.get(article_url) as response:
             article = await response.text()
 

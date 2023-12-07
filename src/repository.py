@@ -1,11 +1,11 @@
-from asyncpg import UniqueViolationError
-from sqlalchemy import func, select, insert, update
+from datetime import datetime
+
+from sqlalchemy import func, insert, select, update
 from sqlalchemy.exc import IntegrityError
 
 from database.database import async_session_maker
-from database.models import Author, Article, Hub
+from database.models import Article, Author, Hub
 from entities import ArticleInfo, HubInfo
-from datetime import datetime
 
 
 class Repository:

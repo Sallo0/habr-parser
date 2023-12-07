@@ -1,8 +1,8 @@
 import datetime
 
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Table, UniqueConstraint
+from sqlalchemy import ForeignKey, Integer, UniqueConstraint
 from sqlalchemy.ext.asyncio import AsyncAttrs
-from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, as_declarative, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
 class Base(AsyncAttrs, DeclarativeBase):

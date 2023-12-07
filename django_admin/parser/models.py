@@ -1,5 +1,7 @@
-from django.db import models
 import datetime
+
+from django.db import models
+
 
 class AbstractModel(models.Model):
     id = models.BigAutoField(primary_key=True)
